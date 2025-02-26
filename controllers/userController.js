@@ -3,15 +3,13 @@ const { v4: uuidv4 } = require("uuid");
 const asyncHandler = require("express-async-handler");
 const sharp = require("sharp");
 const bcrypt = require("bcryptjs");
-
 const User = require("../models/userModel");
-const Review = require("../models/reviewModel");
 const handlerFunction = require("../utils/handlerFunction");
-const { uploadSingleImage } = require("./../middlewares/uploadimageMiddleware");
+const uploadUserImage = require("./../middlewares/uploadImageMiddleware");
 const AppErorr = require("../utils/appErorr");
 const generateToken = require("../utils/generateToken");
 
-exports.uploadUserImage = uploadSingleImage("profileImg");
+exports.uploadUserImage = uploadUserImage.uploadSingleImage("profileImg");
 exports.resizeImage = asyncHandler(async (req, res, next) => {
   const filename = `user-${uuidv4()}-${Date.now()}.jpeg`;
   if (req.file) {
@@ -128,32 +126,9 @@ exports.deleteLoggedUserData = asyncHandler(async (req, res, next) => {
 
 exports.ensureActiveUser = asyncHandler(async (req, res, next) => {
   if (!req.user.active) {
-    return next(new AppErorr("Your account is not active to do this action", 403));
+    return next(
+      new AppErorr("Your account is not active to do this action", 403)
+    );
   }
   next();
 });
-
-// exports.firstComment = asyncHandler(async (req, res, next) => {
-//   const { product } = req.body; // استخراج ID المنتج من الطلب
-
-//   console.log("Incoming Review Request:", req.body.product); // تتبع الطلب
-//   console.log("User ID:", req.user._id); // تتبع معرف المستخدم
-
-//   if (!product) {
-//     return next(new AppErorr("Product ID is required", 400));
-//   }
-
-//   const existingReview = await Review.findOne({
-//     user: req.user._id.toString(),
-//     product: product.toString(),
-//   });
-
-//   console.log("Existing Review Found:", existingReview); // تتبع هل هناك مراجعة سابقة
-
-//   if (existingReview) {
-//     return next(new AppErorr("You have already added a review for this product", 400));
-//   }
-
-//   next(); // السماح للمستخدم بإضافة المراجعة
-// });
-
