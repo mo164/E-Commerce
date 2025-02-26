@@ -67,7 +67,7 @@ exports.updateOrderToDelivered = asyncHandler(async (req, res, next) => {
 exports.checkoutSession = asyncHandler(async (req, res, next) => {
   const taxPrice = 0;
   const shippingPrice = 0;
-  const MIN_AMOUNT = 2; // أقل مبلغ بالجنيه المصري
+  const MIN_AMOUNT = 2; 
 
   // 1) Get cart based on cartId
   const cart = await Cart.findById(req.params.cartId);
@@ -81,14 +81,12 @@ exports.checkoutSession = asyncHandler(async (req, res, next) => {
   const cartPrice = cart.totalPriceAfterDiscount || cart.totalCartPrice;
   const totalOrderPrice = cartPrice + taxPrice + shippingPrice;
 
-  // تأكد إن المبلغ أكبر من الحد الأدنى
   if (totalOrderPrice < MIN_AMOUNT) {
     return next(
       new appError(`Total amount must be at least ${MIN_AMOUNT} EGP`, 400)
     );
   }
 
-  // تحويل السعر إلى cents بدون كسور
   const totalOrderPriceCents = Math.round(totalOrderPrice * 100);
 
   // 3) Create stripe checkout session
@@ -101,7 +99,7 @@ exports.checkoutSession = asyncHandler(async (req, res, next) => {
           product_data: {
             name: req.user.name || "Unknown User",
           },
-          unit_amount: totalOrderPriceCents, // المبلغ الصحيح
+          unit_amount: totalOrderPriceCents, 
         },
         quantity: 1,
       },
