@@ -1,0 +1,32 @@
+{
+    "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+    "plugins": ["prettier"],
+    "rules": {
+      // "prettier/prettier": "error",
+      "spaced-comment": "off",
+      "no-console": "off",
+      "consistent-return": "off",
+      "func-names": "off",
+      "object-shorthand": "off",
+      "no-process-exit": "off",
+      "no-param-reassign": "off",
+      "no-return-await": "off",
+      "no-underscore-dangle": "off",
+      "class-methods-use-this": "off",
+      "no-undef": "error",
+      " eslint-disable-next-line new-cap, no-undef": "off",
+      " eslint-disable-next-line node/no-unsupported-features/es-syntax":"off",
+      "eslint-disable-next-line no-undef":"off",
+      "eslint-disable-next-line import/no-extraneous-dependencies":"off",
+      " eslint-disable-next-line eqeqeq":"off",
+      "eslint-disable-next-line no-use-before-define":"off",
+      " eslint-disable-next-line import/no-extraneous-dependencies":"off",
+      " eslint-disable-next-line new-cap":"off",
+      "eslint-disable no-undef " :"off",
+      "eslint-disable no-unused-expressions":"off",
+      "eslint-disable no-use-before-define":"off",
+      "prefer-destructuring": ["error", { "object": true, "array": false }],
+      "eslint-disable-next-line import/newline-after-import",
+      "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next|val" }]
+    }
+  }
