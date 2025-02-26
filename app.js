@@ -1,7 +1,7 @@
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
-const compression = require('compression')
+const compression = require("compression");
 const morgan = require("morgan");
 
 const app = express();
@@ -19,6 +19,7 @@ const adressesRoutes = require("./routes/adressesRoutes");
 const couponRoutes = require("./routes/couponRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const orderController = require("./controllers/orderController");
 // MIDELEWARES
 app.use(morgan("dev"));
 
@@ -33,13 +34,13 @@ app.use(express.json());
 app.use(cors());
 app.options("*", cors());
 // compress all responses
-app.use(compression())
+app.use(compression());
 
 // Checkout webhook
 app.post(
-  '/webhook-checkout',
-  express.raw({ type: 'application/json' }),
-  webhookCheckout
+  "/webhook-checkout",
+  express.raw({ type: "application/json" }),
+  orderController.webhookCheckout
 );
 
 app.use(express.static(path.join(__dirname, "uploads")));
